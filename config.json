@@ -1,0 +1,21 @@
+{
+    "env_image_name": "fastapi_react_mongo_shadcn_base_image_cloud_arm",
+    "supervisor_programs": [
+        {
+            "name": "backend",
+            "command": "/root/.venv/bin/uvicorn backend.server:app --host 0.0.0.0 --port 8001 --workers 1 --reload",
+            "directory": "/app"
+        },
+        {
+            "name": "frontend",
+            "command": "yarn start",
+            "directory": "/app/frontend"
+        },
+        {
+            "name": "mongodb",
+            "command": "/usr/bin/mongod --bind_ip_all",
+        }
+    ],
+    "supervisor_restart_command": "supervisorctl restart frontend backend",
+    "supervisor_status_command": "supervisorctl status frontend backend"
+}
